@@ -3,9 +3,6 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "directories": {
-    "doc": "docs"
-  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "vuepress dev docs",
@@ -19,16 +16,16 @@
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/zhenganxia/vuepress-snow/issues"
+    "url": "https://github.com/zhenganxia/vuepress-snow.git/issues"
   },
-  "homepage": "https://github.com/zhenganxia/vuepress-snow#readme",
-  "dependencies": {
-    "async-validator": "1.11.5",
-    "element-ui": "2.15.6",
-    "vuepress-plugin-cat": "1.0.3",
-    "vuepress-plugin-demo-container": "0.2.0"
-  },
+  "homepage": "https://github.com/zhenganxia/vuepress-snow.git#readme",
   "devDependencies": {
-    "vuepress": "^1.8.2"
+    "vuepress": "^2.0.0-beta.26"
+  },
+  "dependencies": {
+    "async-validator": "^1.11.5",
+    "element-ui": "^2.15.6",
+    "vuepress-plugin-cat": "1.0.3",
+    "vuepress-plugin-demo-container": "^0.2.0"
   }
 }
