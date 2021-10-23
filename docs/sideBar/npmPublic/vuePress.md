@@ -5,7 +5,7 @@ VuePress 需要 Node.js (opens new window)>= 8.6
 ### 安装vuePress
 1.创建并进入一个新目录
 ```js
-mkdir vuepress-starter && cd vuepress-starter
+git clone  vuepress-snow项目地址
 ```
 2.初始化项目
 ```js
@@ -28,13 +28,14 @@ yarn add -D vuepress # npm install -D vuepress
 ```js
 yarn docs:dev # npm run docs:dev
 ```
-6.设置.vuepress
-
+6.项目中设置.gitignore 忽略 node_modules/ docs/.vuepress/dist
+7.设置.vuepress
 > docs
 >> .vuepress
 >>> config.js\
 >>> enhanceApp.js\
 >>> components
+>>> public
 
 ```js
 mkdir docs && cd docs
@@ -43,7 +44,8 @@ touch config.js // 配置文件
 touch enhanceApp.js //  客户端应用的增强(vue插件引用)
 mkdir components // 全局组件
 ```
-6.一级和多级导航栏
+
+8.一级和多级导航栏
 >.vuepress\
 > nav
 
@@ -77,7 +79,7 @@ themeConfig:{
 }
 
 ```
-7.一级和多级侧边栏设置
+9.一级和多级侧边栏设置
 >.vuepress\
 >sideBar
 >>command
@@ -97,12 +99,8 @@ themeConfig:{
     ]
 }
 ```
-### 配置gitPage
-1.gitHub创建一个新的仓库 learning-summary-vue-press
-2.git clone 到本地
-3.将创建的vuePress项目内容放到clone下来仓库中
-4.项目中设置.gitignore 忽略 node_modules/ docs/.vuepress/dist
-5.创建deploy-gh.sh
+### 配置gitpage
+1.创建deploy-gh.sh
 ```js
 #!/usr/bin/env sh
 
@@ -116,86 +114,27 @@ npm run build
 cd docs/.vuepress/dist
 
 # 如果是发布到自定义域名
-# echo 'www.example.com' > CNAME
-
 git init
 git add -A
 git commit -m 'deploy'
 
-# 把上面的 <USERNAME> 换成你自己的 Github 用户名，<REPO> 换成仓库名，比如我这里就是：
-git push -f git@github.com:zhenganxia/learning-summary-vue-press.git master:gh-pages
+# 把下面的 <USERNAME> 换成你自己的 Github用户名（这里是本项目打包后存储的仓库地址）
+git push -f git@github.com:zhenganxia/vuepress-snow-page.git master
 
 cd -
 ```
-6.修改config.js
+2.修改config.js
 ```js
-base: "/learning-summary-vue-press/", // 设置站点根路径和github项目名称保持一致
+base: "/vuepress-snow-page/", // 当前项目地址是vuepress-snow压缩包放的仓库名称
 注意不要设置dest（会导致build生成文件路径不在docs中，默认是在docs中生成）
 ```
-7.修改package.json-scripts
+3.修改package.json-scripts
 ```js
 "deploy": "npm run build && bash deploy-gh.sh"
 ```
-8.执行成功-查看git上项目setting-pages查看关联情况，关联成功-通过生成地址可以直接访问vuePress项目了
+4.执行成功-查看git上项目setting-pages查看关联情况，关联成功-通过生成地址可以直接访问vuePress项目了
 注意：如果没有数据查看source对应的分支是否对
 ![avatar](/images/gitPage.png)
 <!-- <img :src="$withBase('/images/gitPage.png')" alt="gitPage"> -->
 
 ### [博客搭建element](https://www.jianshu.com/p/93c532cdf951)
-1.安装Demo插件
-```js
-npm install vuepress-plugin-demo-container
-```
-2.然后在/docs/.vuepress/config.js文件中配置上该插件
-```js
-module.exports = {
-  // ...
-  plugins: ['demo-container'], // 配置插件
-  markdown: {}
-}
-```
-3.enhanceApp.js
-```js
-import ElementUI from 'element-ui';
-import 'element-ui/lib/theme-chalk/index.css';
-
-export default async ({
-  Vue
-}) => {
-  if (typeof process === 'undefined') {
-    Vue.use(ElementUI)
-  }
-}
-```
-4.使用element+vuepress-plugin-demo-container插件
-```markdown
-::: demo
-```html
-<template>
-  <el-select v-model="value" placeholder="请选择">
-    <el-option
-      v-for="item in options"
-      :key="item.value"
-      :label="item.label"
-      :value="item.value">
-    </el-option>
-  </el-select>
-</template>
-
-<script>
-  export default {
-    data() {
-      return {
-        options: [{
-          value: '选项1',
-          label: '黄金糕'
-        }, {
-          value: '选项2',
-          label: '双皮奶'
-        }],
-        value: ''
-      }
-    }
-  }
-</script>
-```
